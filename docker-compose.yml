@@ -1,10 +1,76 @@
-version: '3.4'
+version: '3.7'
 
 services:
-  netapp:
-    image: netapp
+  flask:
+    image: netapp_paas
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - 5000:5000
+    environment:
+      - CACHE_TYPE=redis
+      - CACHE_REDIS_HOST=redis
+      - CACHE_REDIS_PORT=6379
+      - CACHE_REDIS_DB=0
+      - CACHE_REDIS_URL=redis://redis:6379/0
+      - CACHE_DEFAULT_TIMEOUT=500
+      - ES_HOST_NAME=elasticsearch
+    depends_on:
+      - elasticsearch
+      - redis
+    networks:
+      - main
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.2
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - main
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.15.2
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      - main
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - main
+
+
+
+volumes:
+  elasticsearch-data:
+    driver: local
+
+networks:
+  main:
+    driver: bridge
