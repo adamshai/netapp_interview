@@ -1,1 +1,0 @@
-# Pokemon as a service
