@@ -1,20 +1,41 @@
 # Pokemon As A Service
 
-## Build once
+Pokemon as a service allow you to store and retrieve pokemons<br/>
+You can retrieve pokemons by their ID or by prefix search, for a<br/>
+word in one of their field values
+
+## API
+
+| HTTP | URL                        | Action                                                                             |
+| ---- | -------------------------- | ---------------------------------------------------------------------------------- |
+| POST | /api/pokemon               | Store a pokemon by its pokadex_id                                                  |
+| GET  | /api/pokemon/_id_          | Get pokemon by ID _id_                                                             |
+| GET  | /api/pokemon               | Get all pokemons                                                                   |
+| GET  | /api/autocomplete/_prefix_ | Get all pokemons that one of the words in their field values has a prefix _prefix_ |
+
+## Maintenance
+
+### Build once
 
 ```
 docker-compose build
 ```
 
-## Run
+### Bring up the API
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
-# API
+### Bring down the API
 
-## Index a pokemon
+```
+docker-compose down
+```
+
+## API Examples
+
+### Store a pokemon (by pokadex_id)
 
 HTTP request:
 
@@ -62,7 +83,7 @@ Response:
 }
 ```
 
-## Get pokemon by ID (pokadex_id)
+### Get pokemon by ID (pokadex_id)
 
 HTTP request:
 
@@ -94,7 +115,7 @@ Response:
 }
 ```
 
-## Get all pokemons
+### Get all pokemons
 
 HTTP request:
 
@@ -145,7 +166,7 @@ Response:
 }
 ```
 
-## Autocomplete: get pokemons by prefix (of any word in any field)
+### Autocomplete: get pokemons by prefix (of some word in any field)
 
 HTTP request:
 
@@ -196,3 +217,7 @@ Response:
     "success": true
 }
 ```
+
+Explanation: Both pokemons have a word that starts with 'grow' -<br/>
+Bulbasaur has a 'Growth' skill, and<br/>
+Pikachu has a 'Growl' skill
