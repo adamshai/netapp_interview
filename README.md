@@ -128,22 +128,6 @@ Response:
             "level": 60,
             "name": "Pikachu",
             "nickname": "Baruh Ha Gever",
-            "pokadex_id": 12,
-            "skills": [
-                "Tail Whip",
-                "Thunder Shock",
-                "Growl",
-                "Play Nice",
-                "Quick Attack",
-                "Electro Ball",
-                "Thunder Wave"
-            ],
-            "type": "ELECTRIC"
-        },
-        {
-            "level": 60,
-            "name": "Pikachu",
-            "nickname": "Baruh Ha Gever",
             "pokadex_id": 25,
             "skills": [
                 "Tail Whip",
@@ -161,7 +145,7 @@ Response:
 }
 ```
 
-## Autocomplete: get all pokemons by prefix
+## Autocomplete: get pokemons by prefix (of any word in any field)
 
 HTTP request:
 
@@ -190,22 +174,6 @@ Response:
                 "Growth"
             ],
             "type": "GRASS"
-        },
-        {
-            "level": 60,
-            "name": "Pikachu",
-            "nickname": "Baruh Ha Gever",
-            "pokadex_id": 12,
-            "skills": [
-                "Tail Whip",
-                "Thunder Shock",
-                "Growl",
-                "Play Nice",
-                "Quick Attack",
-                "Electro Ball",
-                "Thunder Wave"
-            ],
-            "type": "ELECTRIC"
         },
         {
             "level": 60,
